@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            
+        }
+
+        #myForm {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            margin-top: 20px;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="checkbox"] {
+            margin-left: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+.head{
+    margin-bottom: 150px;
+}
+    </style>
+</head>
+<body>
+    <h2 class="head">Form Validation Example</h2>
+    <form id="myForm" onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+        <br>
+        <label for="email">Email-id</label>
+        <input type="text" id="email" name="email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <input type="checkbox" id="showPassword" onchange="showPass()"> Show/Hide Password
+        <br>
+        <label for="password">Confirm Password:</label>
+        <input type="password" id="cpassword" name="cpassword" required>
+        <input type="checkbox" id="cshowPassword" onchange="cshowPass()"> Show/Hide Password
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var cpassword = document.getElementById("cpassword").value;
+
+            var phone = document.getElementById("phone").value;
+            var email = document.getElementById("email").value;
+            var usernamePattern = /^[a-zA-Z0-9]+$/;
+            var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+            var phonePattern = /^\d{10}$/;
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            
+            if (!username.match(usernamePattern)) {
+                alert("Username should only contain letters and numbers.");
+                return false;
+            }
+
+            if (!password.match(passwordPattern)) {
+                alert("Password must be at least 8 characters long, contain at least one lowercase letter, one uppercase letter, and one digit.");
+                return false;
+            }
+            if (password != cpassword) {
+                alert("Password and confirm password don't match.");
+                return false;
+            }
+
+            if (!phone.match(phonePattern)) {
+                alert("Phone number must be 10 digits.");
+                return false;
+            }
+
+            if (!email.match(emailPattern)){
+                alert("Email is invalid.");
+                return false;
+            }
+
+            alert('Form submitted successfully');
+            return false; // Prevent the form from actually submitting (for demonstration purposes)
+        }
+
+        function showPass() {
+            var passwordField = document.getElementById("password");
+            var showPasswordCheckbox = document.getElementById("showPassword");
+            
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = "text"; // Show password
+            } else {
+                passwordField.type = "password"; // Hide password
+            }
+        }
+
+        function cshowPass() {
+            var passwordField = document.getElementById("cpassword");
+            var showPasswordCheckbox = document.getElementById("cshowPassword");
+            
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = "text"; // Show password
+            } else {
+                passwordField.type = "password"; // Hide password
+            }
+        }
+    </script>
+</body>
+</html>
